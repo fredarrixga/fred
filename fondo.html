@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>menu</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #4169e1, #50c878);
+            font-family: 'Segoe UI', sans-serif;
+            color: #0b0b0b;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px;
+            background-color:rgba(134, 190, 246, 0.75);
+            border-bottom: 2px solid #014d4e;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 3em;
+        }
+
+        fieldset {
+            border: 2px solid #f7e7ce;
+            border-radius: 20 px;
+            padding: 20px;
+            margin: 50px auto;
+            width: 80%;
+            max-width: 500px;
+            background-color: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+        }
+
+        legend {
+            font-size: 1.5em;
+            padding: 0 10px;
+            font-weight: bold;
+        }
+
+        nav {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        a {
+            text-decoration: none;
+            background-color: #0056b3;
+            color: #0c0c0c;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            width: 70%;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        a:hover {
+            background-color: #0a9396;
+            color: #fff;
+            transform: scale(1.05);
+            box-shadow: 0 0 10px #fff;
+        }
+footer{
+    color: black;
+    font-size: 15px;
+    border-radius: 20px;
+    text-align: center;
+    margin: 30px;
+}
+       
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>BASE DE DATOS</h1>
+        
+    </header>
+
+    <fieldset>
+        <legend>Selecciona que necesitas</legend>
+        <nav>
+            <a href="formulario.php">INSERTAR NUEVO ALUMNO</a>
+            <a href="eliminar.php">ELIMINAR REGISTRO</a>
+            <a href="modificar.php">MODIFICAR REGISTRO</a>
+             <a href="buscar.php">BUSCAR ALUMNO</a>
+        </nav>
+    </fieldset>
+ <fieldset>
+        <legend>Maestros</legend>
+        <nav>
+            <a href="maestros1.php">BUSCAR MAESTRO</a>
+            <a href="insertar_docente.php">INSERTAR NUEVO DOCENTE</a>
+            <a href="eliminar_docente.php">ELIMINAR DOCENTE</a>
+        </nav>
+    </fieldset>
+<fieldset>
+    <legend>Calificacion</legend>
+        <nav>
+            <a href="cali.php">CONSULTAR CALIFICACIOON</a>
+            
+        </nav>
+    </fieldset>
+
+<footer>
+   <p> Esta página fue creada por Fredi Arriaga Sánchez</p>
+   <p>Grupo: 501</p>
+</footer>
+</body>
+</html>
