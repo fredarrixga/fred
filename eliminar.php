@@ -1,21 +1,24 @@
-<?php $servername="localhost";
-$database="alumnos";
-$username="root";
-$password="";
-//creacion de conexion 
-$conexion=mysqli_connect($servername, $username,$password,$database);
-//chequeo de conexion
-if (!$conexion ){
-die("❌ conexion fallida:". mysqli_connect_error());
+<?php
+$servername = "localhost";
+$database = "alumnos";
+$username = "root";
+$password = "";
 
+// Crear conexión
+$conexion = mysqli_connect($servername, $username, $password, $database);
+
+// Verificar conexión
+if (!$conexion) {
+    die("❌ Conexión fallida: " . mysqli_connect_error());
 }
-echo "✅ conexion exitosa a la base de datos:" .$database . "<br>";
-//proceso de la insercion de datos ?>
+echo "✅ Conexión exitosa a la base de datos: " . $database . "<br>";
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>eliminar</title>
+<title>Eliminar Alumno</title>
 <style>
   body {
     font-family: 'Poppins', sans-serif;
@@ -120,28 +123,43 @@ echo "✅ conexion exitosa a la base de datos:" .$database . "<br>";
 <fieldset>
   <legend>Eliminar Alumno</legend>
   
-  <form method="post" action="eliminar1.php">
+  <form method="post" action="">
     <label>Seleccionar Alumno a Eliminar:</label>
-    <select name="id" required>
+    <select name="id_alumno" required>
       <option value="">-- Selecciona un alumno --</option>
       <?php
-      include("conexion.php");
-      $sql = "SELECT id, nombre, edad FROM tabla ORDER BY id";
+      // Obtener alumnos desde la tabla alumno
+      $sql = "SELECT id_alumno, nombre_alumno, apellido_alumno FROM alumno ORDER BY id_alumno";
       $resultado = mysqli_query($conexion, $sql);
       
       while ($fila = mysqli_fetch_assoc($resultado)) {
-        echo "<option value='{$fila['id']}'>ID: {$fila['id']} - {$fila['nombre']} ({$fila['edad']} años)</option>";
+        echo "<option value='{$fila['id_alumno']}'>
+              ID: {$fila['id_alumno']} - {$fila['nombre_alumno']} {$fila['apellido_alumno']}
+              </option>";
       }
-      
-      mysqli_close($conexion);
       ?>
     </select>
     
-    <br><br>
     <input type="submit" name="eliminar" value="Eliminar" onclick="return confirm('¿Estás seguro de que quieres eliminar este alumno?')">
-    <a href="fondo.html">🏠 Regresar</a>
+    <a href="index.html">🏠 Regresar</a>
   </form>
 </fieldset>
+
+<?php
+// Eliminar alumno si se envió el formulario
+if (isset($_POST['eliminar'])) {
+    $id_alumno = $_POST['id_alumno'];
+    $sql_delete = "DELETE FROM alumno WHERE id_alumno = '$id_alumno'";
+    
+    if (mysqli_query($conexion, $sql_delete)) {
+        echo "<p style='color:green; text-align:center;'>✅ Alumno eliminado correctamente.</p>";
+    } else {
+        echo "<p style='color:red; text-align:center;'>❌ Error al eliminar el alumno: " . mysqli_error($conexion) . "</p>";
+    }
+}
+
+mysqli_close($conexion);
+?>
 
 </body>
 </html>

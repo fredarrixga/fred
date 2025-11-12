@@ -9,7 +9,9 @@ if ($conexion->connect_error) {
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Buscar Calificaciones</title>
+  <title>cali
+    
+  </title>
   <style>
     body {
       background: linear-gradient(135deg, #e6f0ff, #cce0ff);
@@ -75,6 +77,7 @@ if ($conexion->connect_error) {
       cursor: pointer;
       text-decoration: none;
       display: inline-block;
+      text-decoration: none;
       margin-top: 10px;
     }
     input[type=submit]:hover, a.boton:hover {
@@ -105,7 +108,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (empty($nombre) && empty($id)) {
         echo "<p style='text-align:center; color:red;'>Debes ingresar el nombre o el ID del alumno.</p>";
     } else {
-        // Buscar los datos del alumno
+    
         if (!empty($id)) {
             $consultaAlumno = "SELECT * FROM alumno WHERE id_alumno = " . intval($id);
         } else {
@@ -122,7 +125,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             echo "<p><strong>ID:</strong> {$alumno['id_alumno']}</p>";
             echo "<p><strong>Nombre:</strong> {$alumno['nombre_alumno']} {$alumno['apellido_alumno']}</p>";
 
-            // Buscar las calificaciones del alumno
+           
             $idAlumno = $alumno['id_alumno'];
             $consultaCalificaciones = "SELECT * FROM calificacion WHERE id_alumno = $idAlumno";
             $resultadoCalificaciones = $conexion->query($consultaCalificaciones);
@@ -177,7 +180,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 $conexion->close();
 ?>
 <div style="text-align:center;">
-    <a href="fondo.html" class="boton">🏠 Regresar</a>
+    <a href="index.html" class="boton">🏠 Regresar</a>
   </div>
 
 </body>

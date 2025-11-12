@@ -166,7 +166,7 @@
 </fieldset>
 
 <div class="bt">
-  <a href="fondo.html" class="boton">🏠 Regresar</a>
+  <a href="index.html" class="boton">🏠 Regresar</a>
 </div>
 
 </body>

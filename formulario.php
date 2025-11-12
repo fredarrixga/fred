@@ -1,117 +1,124 @@
+<?php
+$conexion = new mysqli("localhost", "root", "", "alumnos");
+if ($conexion->connect_error) {
+    die("Error de conexión: " . $conexion->connect_error);
+}
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>formulario</title>
+  <title>Iinsertar</title>
   <style>
     body {
-      background: linear-gradient(135deg, #f6063a 0%, #042eea 100%);
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-      text-align: center;
+      background: linear-gradient(135deg, #e6ffe6, #ccffcc);
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    fieldset {
+      border: 2px solid #009933;
+      border-radius: 10px;
+      padding: 20px;
+      background: #fff;
+      box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+      max-width: 600px;
+      margin: auto;
     }
     legend {
-      color: rgb(0, 10, 7);
-      margin-bottom: 20px;
-      font-family: cursive;
-      text-align: center;
-      font-size: 30px;
+      font-size: 1.4em;
+      color: #006600;
+      font-weight: bold;
     }
-    label {
-      display: inline-block;
-      margin: 15px;
-      padding: 15px 30px;
-      background-color: rgb(38, 131, 237);
-      color: rgb(23, 22, 22);
+    input[type=text], input[type=email], input[type=number], input[type=date], select {
+      width: 100%;
+      padding: 8px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    input[type=submit], a.boton {
+      background: linear-gradient(135deg, #28a745, #5cd65c);
+      color: white;
+      padding: 10px 15px;
       border: none;
-      border-radius: 30px;
-      text-decoration: none;
-      font-size: 20px;
-      transition: background-color 0.3s;
-    }
-    input[type="text"],
-    input[type="tel"] {
-      margin-bottom: 25px;
-      background-color: rgb(237, 216, 253);
-      border-radius: 8px;
-      padding: 15px;
-    }
-    input[type="submit"], .btn-regresar {
-      border-radius: 8px;
-      font-size: 20px;
-      background-color: rgb(157, 141, 250);
-      border-radius: 15% 20% 25%;
-      margin-bottom: 20px;
-      padding: 20px;
-      margin: 15px;
-      cursor: pointer;
-      border: none;
-      text-decoration: none;
-      color: black;
-      display: inline-block;
-      transition: background-color 0.3s;
-    }
-    input[type="submit"]:hover,
-    .btn-regresar:hover {
-      background-color: rgb(121, 101, 243);
-    }
-    .mensaje {
-      background-color: rgba(255,255,255,0.7);
-      padding: 10px;
-      margin: 15px auto;
-      width: 50%;
       border-radius: 10px;
-      font-family: sans-serif;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 10px;
+    }
+    input[type=submit]:hover, a.boton:hover {
+      background: linear-gradient(135deg, #1e7e34, #4cd64c);
+    }
+    p {
+      text-align: center;
     }
   </style>
 </head>
 <body>
 
+  <fieldset>
+    <legend>Insertar Nuevo Alumno</legend>
+    <form method="POST">
+      <label>ID del Alumno:</label>
+      <input type="number" name="id_alumno" required>
+
+      <label>Nombre:</label>
+      <input type="text" name="nombre_alumno" required>
+
+      <label>Apellido:</label>
+      <input type="text" name="apellido_alumno" required>
+
+      <label>Fecha de Nacimiento:</label>
+      <input type="date" name="fecha_na" required>
+
+      <label>Dirección:</label>
+      <input type="text" name="direccion" required>
+
+      <label>Teléfono:</label>
+      <input type="text" name="telefono" required>
+
+      <label>Email:</label>
+      <input type="email" name="email" required>
+
+      <label>Sexo:</label>
+      <select name="sexo" required>
+        <option value="">-- Selecciona --</option>
+        <option value="Masculino">masculino</option>
+        <option value="Femenino">femenino</option>
+      </select>
+
+      <input type="submit" value="Guardar Alumno">
+    </form>
+  </fieldset>
+
 <?php
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $nombre = $_POST["nombre"];
-    $edad = $_POST["edad"];
-    $telefono = $_POST["telefono"];
+    $id = $_POST['id_alumno'];
+    $nombre = $_POST['nombre_alumno'];
+    $apellido = $_POST['apellido_alumno'];
+    $fecha = $_POST['fecha_na'];
+    $direccion = $_POST['direccion'];
+    $telefono = $_POST['telefono'];
+    $email = $_POST['email'];
+    $sexo = $_POST['sexo'];
 
- 
-    $conexion = new mysqli("localhost", "root", "", "alumnos");
+    $consulta = "INSERT INTO alumno (id_alumno, nombre_alumno, apellido_alumno, fecha_na, direccion, telefono, email, sexo)
+                 VALUES ('$id', '$nombre', '$apellido', '$fecha', '$direccion', '$telefono', '$email', '$sexo')";
 
-    if ($conexion->connect_error) {
-        echo "<div class='mensaje' style='color:red;'>Error de conexión: " . $conexion->connect_error . "</div>";
+    if ($conexion->query($consulta) === TRUE) {
+        echo "<p style='color:green;'>✅ Alumno insertado correctamente.</p>";
     } else {
-        $sql = "INSERT INTO tabla (nombre, edad, telefono) VALUES ('$nombre', '$edad', '$telefono')";
-        if ($conexion->query($sql) === TRUE) {
-            echo "<div class='mensaje' style='color:green;'>✅ Datos insertados correctamente</div>";
-        } else {
-            echo "<div class='mensaje' style='color:red;'>❌ Error al insertar: " . $conexion->error . "</div>";
-        }
-        $conexion->close();
+        echo "<p style='color:red;'>❌ Error al insertar: " . $conexion->error . "</p>";
     }
 }
+$conexion->close();
 ?>
 
-  <fieldset>
-    <legend>FORMULARIO DE MUESTRA</legend>
-    <form method="POST" action="">
-      <label>NOMBRE DEL ALUMNO:</label>
-      <input type="text" name="nombre" id="nombre" required placeholder="Nombre">
-      <br><br>
-
-      <label>EDAD DEL ALUMNO:</label>
-      <input type="text" name="edad" id="edad" required placeholder="Número entero">
-      <br><br>
-
-      <label>TELÉFONO DEL ALUMNO:</label>
-      <input type="tel" name="telefono" id="telefono" required placeholder="Ejem. 7293666701" minlength="10" maxlength="10">
-      <br><br>
-
-      <input type="submit" value="Enviar">
-    </form>
-
-  
-    <a href="fondo.html" class="btn-regresar"> Regresar</a>
-  </fieldset>
+  <div style="text-align:center;">
+    <a href="fondo.html" class="boton">🏠 Regresar</a>
+  </div>
 
 </body>
 </html>

@@ -43,7 +43,7 @@ if (isset($_POST['eliminar'])) {
   
   mysqli_close($conexion);
 } else {
-  // Si alguien accede directamente al archivo sin enviar el formulario
+  
   header("Location: ./eliminar.php");
   exit();
 }

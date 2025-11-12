@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Buscar Alumno</title>
+  <title>buscar</title>
   <style>
     body {
       background: linear-gradient(135deg, #f6063a 0%, #042eea 100%);
@@ -90,24 +90,24 @@
       
       <br>
       <input type="submit" value="Buscar">
-      <a href="fondo.html" class="btn-regresar">Regresar</a>
+      <a href="index.html" class="btn-regresar">Regresar</a>
     </form>
   </fieldset>
 
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    // Conexión
+   
     $conexion = new mysqli("localhost", "root", "", "alumnos");
     if ($conexion->connect_error) {
         die("<div class='resultado' style='color:red;'>Error de conexión: " . $conexion->connect_error . "</div>");
     }
 
-    // Obtener valores del formulario
+    
     $id_alumno = $_POST["id_alumno"];
     $nombre = $_POST["nombre_alumno"];
 
-    // Determinar tipo de búsqueda
+   
     if (!empty($id_alumno)) {
         $sql = "SELECT * FROM alumno WHERE id_alumno = '$id_alumno'";
     } elseif (!empty($nombre)) {
@@ -118,7 +118,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit;
     }
 
-    // Ejecutar búsqueda
+  
     $resultado = $conexion->query($sql);
 
     if ($resultado && $resultado->num_rows > 0) {
